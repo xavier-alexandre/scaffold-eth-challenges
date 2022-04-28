@@ -8,13 +8,20 @@
 
 > 🎛 Building the frontend to display the information and UI is just as important as writing the contract. The goal is to deploy the contract and the app to allow anyone to stake using your app. Use a `Stake(address,uint256)` event to <List/> all stakes.
 
-> 🏆 The final **deliverable** is deploying a decentralized application to a public blockchain and then `yarn build` and `yarn surge` your app to a public webserver. Share the url in the [Challenge 1 telegram channel](https://t.me/joinchat/E6r91UFt4oMJlt01) to earn a collectible and cred! || Part of the challenge is making the **UI/UX** enjoyable and clean! 🍾
+> 🌟 The final deliverable is deploying a Dapp that lets users send ether to a contract and stake if the conditions are met, then `yarn build` and `yarn surge` your app to a public webserver.  Submit the url on [SpeedRunEthereum.com](https://speedrunethereum.com)!
+
+> 💬 Meet other builders working on this challenge and get help in the [Challenge 1 telegram](https://t.me/joinchat/E6r91UFt4oMJlt01)!
 
 
 🧫 Everything starts by ✏️ Editing `Staker.sol` in `packages/hardhat/contracts`
 
 ---
 ### Checkpoint 0: 📦 install 📚
+
+Want a fresh cloud environment? Click this to open a gitpod workspace, then skip to Checkpoint 1 after the tasks are complete.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/scaffold-eth/scaffold-eth-challenges/tree/challenge-1-decentralized-staking)
+
 
 ```bash
 
@@ -62,6 +69,11 @@ uint256 public constant threshold = 1 ether;
 
 > 👩‍💻 Write your `stake()` function and test it with the `Debug Contracts` tab in the frontend
 
+💸 Need more funds from the faucet?  Enter your frontend address into the wallet to get as much as you need!
+![Wallet_Medium](https://user-images.githubusercontent.com/12072395/159990402-d5535875-f1eb-4c75-86a7-6fbd5e6cbe5f.png)
+
+✏ Need to troubleshoot your code?  If you import `hardhat/console.sol` to your contract, you can call `console.log()` right in your Solidity code.  The output will appear in your `yarn chain` terminal.
+
 #### 🥅 Goals
 
 - [ ] Do you see the balance of the `Staker` contract go up when you `stake()`?
@@ -86,7 +98,7 @@ uint256 public deadline = block.timestamp + 30 seconds;
 
 If the `address(this).balance` of the contract is over the `threshold` by the `deadline`, you will want to call: ```exampleExternalContract.complete{value: address(this).balance}()```
 
-If the balance is less than the `threshold`, you want to set a `openForWithdraw` bool to `true` and allow users to `withdraw(address payable)` their funds.
+If the balance is less than the `threshold`, you want to set a `openForWithdraw` bool to `true` and allow users to `withdraw()` their funds.
 
 (You'll have 30 seconds after deploying until the deadline is reached, you can adjust this in the contract.)
 
@@ -101,7 +113,7 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 #### 🥅 Goals
 - [ ] Can you see `timeLeft` counting down in the `Staker UI` tab when you trigger a transaction with the faucet?
 - [ ] If you `stake()` enough ETH before the `deadline`, does it call `complete()`?
-- [ ] If you don't `stake()` enough can you `withdraw(address payable)` your funds?
+- [ ] If you don't `stake()` enough can you `withdraw()` your funds?
 
 
 ---
@@ -132,6 +144,10 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ---
 
+#### ⚠️ Test it!
+-  Now is a good time to run `yarn test` to run the automated testing function. It will test that you hit the core checkpoints.  You are looking for all green checkmarks and passing tests!
+---
+
 ### Checkpoint 5: 🚢 Ship it 🚁
 
 📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat/hardhat.config.js`
@@ -141,6 +157,8 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying.
 
 ⛽️ You will need to send ETH to your **deployer address** with your wallet.
+
+ > 📝 If you plan on submitting this challenge, be sure to set your ```deadline``` to at least ```block.timestamp + 72 hours```
 
  >  🚀 Run `yarn deploy` to deploy your smart contract to a public network (selected in hardhat.config.js)
 
@@ -157,16 +175,16 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
  📡 When you are ready to ship the frontend app...
 
  📦  Run `yarn build` to package up your frontend.
- 
- > 📝 If you plan on submitting this challenge, be sure to set your ```deadline``` to at least ```block.timestamp + 72 hours```
 
 💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
 
-> 📝 you will use this deploy URL to submit to [SpeedRun](https://speedrunethereum.com).
+>  😬 Windows users beware!  You may have to change the surge code in `packages/react-app/package.json` to just `"surge": "surge ./build",`
+
+⚙ If you get a permissions error `yarn surge` again until you get a unique URL, or customize it in the command line.
+
+> 📝 you will use this deploy URL to submit to [SpeedRunEthereum.com](https://speedrunethereum.com).
 
 🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
-
-🎖 Show off your app by pasting the url in the [Challenge 1 telegram channel](https://t.me/joinchat/E6r91UFt4oMJlt01) 🎖
 
 ---
 ### Checkpoint 7: 📜 Contract Verification
